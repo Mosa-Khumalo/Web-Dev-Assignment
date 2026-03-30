@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minions Tech Hub</title>
+<link rel="icon" href="logo.jpeg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    scroll-behavior: smooth;
+    background: linear-gradient(to right, #0B1F3A, #132F4C);
+    color: white;
+}
+
+/* HEADER */
+.site-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+}
+.site-header img {
+     width: 60px;
+      border-radius: 50%;
+    }
+
+.section {
+    display: none;
+}
+
+#home {
+    display: block;
+}
+
+/* NAVBAR */
+.navbar {
+    background: rgba(0,0,0,0.6);
+    position: sticky;
+    top: 0;
+}
+.navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
+.navbar a {
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.navbar a:hover { background: #1976D2; border-radius: 5px; }
+
+/* SECTIONS */
+.section { padding: 60px 20px; text-align: center; }
+
+/* SLIDESHOW */
+.slideshow-container {
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+.slide { display: none; }
+.slide img { width: 100%; border-radius: 10px; }
+.caption {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    font-size: 20px;
+}
+
+/* FADE ANIMATION */
+.fade { animation: fade 1s; }
+@keyframes fade { from {opacity: 0.4} to {opacity:1} }
+
+.content {
+  margin: 40px;
+  padding: 30px;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* CONTAINER */
+.aboutus-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+/* CARDS */
+.vm-card {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    transition: 0.3s;
+}
+.vm-card h3 { margin-bottom: 10px; position: relative; display: inline-block; }
+.vm-card h3::after {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 3px;
+    background: #64B5F6;
+    margin: 5px auto 0;
+    border-radius: 2px;
+}
+
+/* EXTRA BLANK CARDS */
+.vm-blank-card {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    margin: 20px 10px;
+    transition: 0.3s;
+}
+
+/* TEAM SLIDESHOW */
+.team-slideshow {
+    position: relative;
+    width: 60%;
+    margin: 30px auto;
+    text-align: center;
+}
+.team-slide {
+    display: none;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    transition: 0.5s;
+}
+.team-slide img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.team-slide.active { display: block; }
+.team-slideshow button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.team-slideshow button:hover { background: rgba(0,0,0,0.8); }
+.team-slideshow .prev { left: -50px; }
+.team-slideshow .next { right: -50px; }
+
+/* HOVER CARDS */
+.interactive-card {
+    background: rgba(255,255,255,0.08);
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.interactive-card:hover { background: rgba(255,255,255,0.15); }
+.card-title { font-size: 18px; font-weight: normal; }
+.card-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.5s ease;
+    margin-top: 10px;
+}
+.interactive-card.active 
+.card-content { max-height: 500px; }
+.interactive-card img {
+    width: 100%;
+   max-height: 300px; 
+   height: auto;
+   object-fit: contain;
+   border-radius: 10px;
+   margin-top: 15px;
+   display: block;
+}
+
+/* INNER BOXES */
+.inner-box {
+    background: rgba(255,255,255,0.05);
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.inner-box:hover { background: rgba(255,255,255,0.1); }
+.inner-title { font-weight: bold; }
+.inner-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s ease;
+    margin-top: 5px;
+}
+.inner-box.active .inner-content { max-height: 300px; }
+.tip-box { border-left: 4px solid #64B5F6; }
+.inner-content img {
+    width: 100%;
+   max-height: 300px; 
+   height: auto;
+   object-fit: contain;
+   border-radius: 10px;
+   margin-top: 15px;
+   display: block;
+}
+
+/* CONTACT */
+.contact-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.contact-item {
+    padding: 20px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.contact-item:nth-child(1) { background: #EA4335; }
+.contact-item:nth-child(2) { background: #34B7F1; }
+.contact-item:nth-child(3) { background: #1877F2; }
+.contact-item:nth-child(4) { background: #25D366; }
+.contact-item:nth-child(5) { background: #0077B5; }
+.contact-item:hover { transform: scale(1.2); filter: brightness(1.2); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .vision-mission-container { flex-direction: column; align-items: center; }
+    .team-slideshow { width: 90%; }
+}
+@media (max-width: 500px) {
+    .team-slideshow button.prev { left: -20px; }
+    .team-slideshow button.next { right: -20px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="site-header">
+        <img src="logo.jpeg">
+        <h1>MinionsTech Hub</h1>
+    </div>
+</header>
+
+<nav class="navbar">
+   <nav class="navbar">
+    <ul>
+        <li><a href="#" onclick="showSection('home')">Home</a></li>
+        <li><a href="#" onclick="showSection('about')">About</a></li>
+        <li><a href="#" onclick="showSection('content')">Content</a></li>
+        <li><a href="#" onclick="showSection('extraresources')">Extra Resources</a></li>
+        <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+    </ul>
+</nav>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="section">
+<div class="slideshow-container">
+    <div class="slide fade">
+        <img src="slide1.jpeg">
+        <div class="caption">Learn Computer Basics</div>
+    </div>
+    <div class="slide fade">
+        <img src="slide3.jpg">
+        <div class="caption">Build Digital Skills</div>
+    </div>
+</div>
+
+<div class="content">
+    <h2>Welcome 👋</h2>
+    <p>Explore ICT fundamentals in a simple and powerful way.</p>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+<h2>About Us</h2>
+<div class="aboutus-container"> 
+    
+     <div class="vm-blank-card">
+        <h3>Minions Tech Hub Overview</h3>
+        <p>Our platform was developed in response to the challenges faced by many beginner ICT learners who often struggle to understand computer and laptop components. 
+        Our website aims to simplify complex concepts by providing well-structured, easy-to-understand content. 
+        Through the use of concise explanations, relevant images, and supportive diagrams, we strive to enhance learners’ understanding and confidence in working with technology. Our goal is to create an engaging and user-friendly educational platform that empowers beginner learners to build strong ICT knowledge and skills.</p>
+    </div>
+    
+    <div class="vm-card">
+        <h3>VISION</h3>
+        <p>To empower learners with essential digital skills and make technology accessible to everyone, especially beginners, through simple and engaging learning experiences.</p>
+    </div>
+    <div class="vm-card">
+        <h3>MISSION</h3>
+        <p>To provide clear, practical, and interactive ICT knowledge that helps users understand laptop fundamentals and confidently use technology in everyday life.</p>
+    </div>
+</div>
+
+<h2>Meet Your TechMinions 👇</h2>
+<div class="team-slideshow">
+  <div class="team-slide active">
+    <img src="sihle.jpeg">
+    <h2>Sphesihle</h2>
+    <p>Researcher</p>
+  </div>
+  <div class="team-slide">
+    <img src="wawa.jpeg">
+    <h2>Warona</h2>
+    <p>Frontend Developer/Researcher</p>
+  </div>
+  <div class="team-slide">
+    <img src="karabo.jpeg">
+    <h2>Karabo</h2>
+    <p>Researcher</p>
+  </div>
+  <div class="team-slide">
+    <img src="mpotseng.jpeg">
+    <h2>Mpotseng</h2>
+    <p>Researcher</p>
+  </div>
+  <div class="team-slide">
+    <img src="kgadi.jpeg">
+    <h2>Mokgadi</h2>
+    <p>Content Creator</p>
+  </div>
+  <div class="team-slide">
+    <img src="sinobom.jpeg">
+    <h2>Sinobom</h2>
+    <p>Content Creator</p>
+  </div>
+  <div class="team-slide">
+    <img src="thabiso.jpeg">
+    <h2>Thabiso</h2>
+    <p>Resource and Referencing</p>
+  </div>
+  <div class="team-slide">
+    <img src="IMG-20260319-WA0061.jpg">
+    <h2>Mosa</h2>
+    <p>Frontend Developer/Coder</p>
+  </div>
+  <div class="team-slide">
+    <img src="bafana.jpeg">
+    <h2>Bonginkosi</h2>
+    <p>Frontend Developer/Coder</p>
+  </div>
+
+  <button class="prev" onclick="changeSlide(-1)">❮</button>
+  <button class="next" onclick="changeSlide(1)">❯</button>
+</div>
+
+</section>
+
+<!-- CONTENT SECTION -->
+<section id="content" class="section">
+<h2>Contents</h2>
+<p>What we offer</p>
+
+<div class="interactive-card" onclick="toggleCard(this)">
+<div class="card-title">Laptop Basics</div>
+<div class="card-content">
+    <p><strong>WHAT IS A LAPTOP?</strong><br>A laptop is a portable, compact personal computer designed for mobile use.</p>
+    <p><strong>EXTERNAL HARDWARE COMPONENTS:</strong></p>
+            <ul>
+                <li><b>Display Screen:</b> The visual component of a laptop that can be either an LCD or an LED. It allows users to view information and execute tasks.</li>
+                <li><b>Keyboard:</b> An input device that is used to click the keys and to enter texts, numbers, and symbols. It also acts as the main interface for interacting with the operating system and applications.</li>
+                <li><b>Touchpad:</b> This is a tactile sensor where you slide your finger to move the cursor onto the screen; it acts as a direct replacement for a mouse.</li>
+                <li><b>Webcam/Microphone:</b> Used real-time video communication, including video calls and virtual meetings.</li>
+                <li><b>Power Button:</b>Turns the laptop on and off, acting as a signaling device. It is typically located on the top side of the laptop.</li>
+                <li><b>Speakers:</b> Integrated speakers are used for listening to music and allow users to hear system alerts. </li>
+            </ul>
+    <img src="laptop.jpg" alt="Laptop Image">
+</div>
+</div>
+<div class="interactive-card" onclick="toggleCard(this)">
+<div class="card-title">External Ports</div>
+<div class="card-content">
+    <p><b>USB Ports:</b> Connect peripherals like flash drives.</p>
+    <p><b>HDMI Port:</b> Connect to external displays.</p>
+    <p><b>Audio Jack:</b> Connect headphones or microphones.</p>
+</div>
+</div>
+<div class="interactive-card" onclick="toggleCard(this)">
+    <div class="card-title">Keyboard and Functions</div>
+      <div class="card-content">
+        <div class="inner-box" onclick="toggleInner(event, this)">
+          <div class="inner-title">1. Keyboard Explanation</div>
+            <div class="inner-content">
+             <p>A keyboard is an input device used to type letters, numbers, and commands into a computer, making it essential for user interaction.</p>
+            </div>
+        </div>
+             <div class="inner-box" onclick="toggleInner(event, this)">
+               <div class="inner-title">2. Key Types & Functions</div>
+               <div class="inner-content">
+        <p>It includes different types of keys with specific functions. Control keys like <strong>Ctrl</strong>, <strong>Alt</strong>, and <strong>Shift</strong> are used for shortcuts, while navigation keys such as <strong>Home</strong>, <strong>End</strong>, and <strong>Page Up/Down</strong> help move through documents. Function keys (<strong>F1–F12</strong>) perform tasks like opening help menus, refreshing pages, and enabling full-screen mode.
+        Common keyboard layouts include <strong>QWERTY</strong> (the most widely used), <strong>AZERTY</strong>, and <strong>DVORAK</strong>. Keyboard shortcuts, such as <strong>Ctrl + C</strong> (copy), <strong>Ctrl + V</strong> (paste), and <strong>Ctrl + S</strong> (save), help users complete tasks more quickly and efficiently.
+        There are also various types of keyboards, including <strong>membrane</strong>, <strong>mechanical</strong>, <strong>chiclet</strong>, <strong>ergonomic</strong>, and <strong>wireless</strong>, each designed for different needs and preferences.
+        Practicing good typing habits—such as using the home row keys, maintaining proper posture, and typing regularly—can improve speed and accuracy.
+        Overall, understanding how keyboards work helps users become more efficient and comfortable when using a computer.</p>
+                </div>
+                 </div>
+                </div>
+</div>
+<div class="interactive-card" onclick="toggleCard(this)">
+<div class="card-title">Mouse & Touchpad</div>
+<div class="card-content">
+    <div class="inner-box" onclick="toggleInner(event, this)">
+        <div class="inner-title">1. Background Information</div>
+        <div class="inner-content">
+            <p>Optical mice with IntelliEye tech detect minor surface differences.</p>
+            <img src="mouse.jpg" alt="Optical Mouse">
+        </div>
+    </div>
+    <div class="inner-box" onclick="toggleInner(event, this)">
+        <div class="inner-title">2. Choosing a Mouse</div>
+        <div class="inner-content">
+            <ul>
+                <li>Size & shape</li>
+                <li>Wheel mouse reduces movement</li>
+                <li>Extra buttons optional</li>
+            </ul>
+        </div>
+    </div>
+    <div class="inner-box" onclick="toggleInner(event, this)">
+        <div class="inner-title">3. Description of a Mouse</div>
+        <div class="inner-content">
+            <p><b>Right Click:</b> Menus & quick actions</p>
+            <p><b>Left Click:</b> Selecting & interacting</p>
+            <p><b>Scroll Wheel:</b> Scrolls pages & tabs</p>
+        </div>
+    </div>
+    <div class="inner-box" onclick="toggleInner(event, this)">
+        <div class="inner-title">4. The Touchpad</div>
+        <div class="inner-content">
+            <p>Flat rectangular surface below keyboard for finger gestures.</p>
+        </div>
+    </div>
+    <div class="inner-box" onclick="toggleInner(event, this)">
+        <div class="inner-title">5. Touchpad Actions</div>
+        <div class="inner-content">
+            <ul>
+                <li>Slide → moves cursor</li>
+                <li>Tap → click</li>
+                <li>Two-finger swipe → scroll</li>
+                <li>Pinch → zoom</li>
+            </ul>
+        </div>
+    </div>
+    <!-- TIP -->
+    <div class="inner-box tip-box" onclick="toggleInner(event, this)">
+        <div class="inner-title">💡 Tip</div>
+        <div class="inner-content">
+            <p>Clean mouse if movement is jerky.</p>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+<div class="card">
+    <h2>Contact Us</h2>
+    <p>Have questions? Reach out through any channel below!</p>
+</div>
+
+<div class="contact-list">
+<a href="mailto:info2minionstechhub@gmail.com" class="contact-item"><i class="fas fa-envelope"></i></a>
+<a href="tel:+27686821944" class="contact-item"><i class="fas fa-phone"></i></a>
+<a href="https://www.facebook.com/share/1AkedgL68G/?mibextid=wwXIfr" class="contact-item"><i class="fab fa-facebook-f"></i></a>
+<a href="HTTPS://wa.me/+27686821944" class="contact-item"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.linkedin.com/in/infomation-minionstechhub-5513093ba" class="contact-item"><i class="fab fa-linkedin-in"></i></a>
+</div>
+</section>
+
+<script>
+function showSection(sectionId) {
+    let sections = document.querySelectorAll(".section");
+
+    // Hide all sections
+    sections.forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Show selected section
+    document.getElementById(sectionId).style.display = "block";
+}
+
+// HOME SLIDESHOW
+let homeIndex = 0;
+const homeSlides = document.querySelectorAll("#home .slide");
+function showHomeSlides() {
+    homeSlides.forEach(s => s.style.display="none");
+    homeIndex++;
+    if(homeIndex>homeSlides.length){homeIndex=1;}
+    homeSlides[homeIndex-1].style.display="block";
+    setTimeout(showHomeSlides,4000);
+}
+showHomeSlides();
+
+// TEAM SLIDESHOW
+let teamIndex = 0;
+const teamSlides = document.querySelectorAll(".team-slide");
+function showTeamSlide(index){
+    teamSlides.forEach(s=>s.classList.remove("active"));
+    teamSlides[index].classList.add("active");
+    document.querySelector(".prev").style.display = index===0?"none":"block";
+    document.querySelector(".next").style.display = index===teamSlides.length-1?"none":"block";
+}
+function changeSlide(n){
+    teamIndex += n;
+    if(teamIndex<0) teamIndex=0;
+    if(teamIndex>=teamSlides.length) teamIndex=teamSlides.length-1;
+    showTeamSlide(teamIndex);
+}
+showTeamSlide(teamIndex);
+
+// INTERACTIVE CARDS
+function toggleCard(selectedCard){
+    document.querySelectorAll(".interactive-card").forEach(card=>{
+        if(card!==selectedCard) card.classList.remove("active");
+    });
+    selectedCard.classList.toggle("active");
+}
+function toggleInner(event, box){
+    event.stopPropagation();
+    box.classList.toggle("active");
+}
+</script>
+</body>
+</html>
